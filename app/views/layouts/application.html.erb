@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="https://kit.fontawesome.com/bf1988bc9c.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+  <body class="d-flex flex-column vh-100">
+
+    <header>
+      <!--ナビゲーションバーのスタイルを大画面で表示させ、テキストと背景を暗くする-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        　<div class="container">
+        　  <!--navbar-branはロゴを示す-->
+     　    <a class="navbar-brand" href="/">Bookers</a>
+           <!--ボタン要素にしてクリックで実行できるようにする-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!--ナビゲーションバーのコンテンツをおりたたんだりする-->
+          <!--idを指定することでナビゲーションバーとメニューコンテンツを関連付け-->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!--ml-autoでリストを右側に配置-->
+    　　    <ul class="navbar-nav ml-auto">
+        　 <% if user_signed_in? %>
+
+          　 <li>
+              <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
+                <i class="fas fa-home"></i> Home
+              <% end %>
+             </li>
+
+             <li>
+             <%=  link_to users_path,class: 'nav-link text-light' do %>
+               <i class="fas fa-users"></i> Users
+             <% end %>
+             </li>
+             <li>
+             <%=  link_to books_path ,class: 'nav-link text-light' do %>
+               <i class="fas fa-book-open"></i> Books
+             <% end %>
+             </li>
+             <li>
+              <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
+                <i class="fas fa-sign-out-alt"></i> Log out
+              <% end %>
+             </li>
+              <% else %>
+             <li>
+              <%= link_to root_path,class: 'nav-link text-light' do %>
+                <i class="fas fa-home"></i> Home
+              <% end %>
+              </li>
+              <li>
+                <%= link_to about_path,class: 'nav-link text-light' do %>
+                  <i class="fas fa-link"></i> About
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_user_registration_path,class: 'nav-link text-light' do %>
+                  <i class="fas fa-user-plus"></i> Sign up
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
+                  <i class="fas fa-sign-in-alt"></i> Log in
+                <% end %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+     <%= yield %>
+    </main>
+  </body>
+
+  <footer>
+    <div class = "container">
+      <div class = "row">
+        <div class = "mx-auto mt-5">
+          <p>CopyRight Infratop.incCopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>

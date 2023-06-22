@@ -1,0 +1,52 @@
+<div> <%= flash[:notice] %> </div>
+
+<div class = "container">
+  <div class = "row">
+    <!--部分テンプレート入り1：ユーザ情報、ユーザ編集リンク(Userフォルダーに保存)-->
+    <div class = "col-md-3">
+      <%= render 'users/userinfo', user: @user %>
+        <!--ここまでがユーザフォルダーに保存するテンプレート-->
+
+      <!--部分テンプレート入り2：新規投稿フォーム(bookフォルダーに保存)-->
+      <%= render 'newbook', book: @book_new %>
+      <!--部分テンプレート終わり2：新規投稿フォーム(bookフォルダーに保存)-->
+    </div>
+
+    <div class = "col-md-8 offset-md-1">
+      <table class="table table-user">
+        <h1>Book detail</h1>
+
+        <!--画像の下にユーザ名 (リンク付きあり)　タイトルはリンクありだが同じURLを取得-->
+        <!--edit:destroyはif文を使っているので注意-->
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@user) do %>
+               <%= image_tag @book.user.get_profile_image(100,100) %><br>
+               <%= @book.user.name %>
+              <% end %>
+            </td>
+
+            <td> <!--indexのコピペしているので注意-->
+             <%= @book.title %>
+            </td>
+
+            <td>
+              <%= link_to @book.body, book_path(@book) %>
+            </td>
+
+            <td>
+              <% if @user.id == current_user.id %>
+                <%= link_to "Edit", edit_book_path(@book),class:"btn btn-success" %>
+            </td>
+            <td>
+                <%= link_to "Destroy", book_path(@book), method: :delete ,class:"btn btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
